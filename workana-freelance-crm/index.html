@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Freelance Desk | CRM para propuestas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegacion principal">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">FD</div>
+          <div>
+            <strong>Freelance Desk</strong>
+            <span>Clientes y propuestas</span>
+          </div>
+        </div>
+
+        <nav class="nav-stack" aria-label="Secciones">
+          <button class="nav-item active" type="button" data-view-link="dashboardView">Panel</button>
+          <button class="nav-item" type="button" data-view-link="proposalsView">Propuestas</button>
+          <button class="nav-item" type="button" data-view-link="revenueView">Ingresos</button>
+          <button class="nav-item" type="button" data-view-link="historyView">Historial</button>
+        </nav>
+
+        <button class="profile-strip" type="button" data-view-link="settingsView" aria-label="Abrir configuracion de cuenta">
+          <div class="avatar" aria-hidden="true">SA</div>
+          <div>
+            <strong>Samary</strong>
+            <span>Freelancer digital</span>
+          </div>
+        </button>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Espacio de trabajo</p>
+            <h1>Gestiona clientes, propuestas e ingresos desde un solo panel.</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-button" id="resetDemo" type="button" title="Restaurar datos demo" aria-label="Restaurar datos demo">
+              R
+            </button>
+            <button class="primary-button" type="button" data-open-modal>
+              <span aria-hidden="true">+</span>
+              Nueva oportunidad
+            </button>
+          </div>
+        </header>
+
+        <section class="view active" id="dashboardView">
+          <section class="metrics-grid" id="dashboard" aria-label="Metricas principales">
+            <article class="metric clickable-metric" data-view-link="revenueView">
+              <span>Ingresos estimados</span>
+              <strong id="metricRevenue">$0</strong>
+              <small>Haz clic para ver de donde sale</small>
+            </article>
+            <article class="metric clickable-metric" data-view-link="proposalsView" data-proposal-filter="pending">
+              <span>Propuestas pendientes</span>
+              <strong id="metricOpen">0</strong>
+              <small>Por preparar o negociar</small>
+            </article>
+            <article class="metric">
+              <span>Tasa de cierre</span>
+              <strong id="metricCloseRate">0%</strong>
+              <small>Finalizados sobre total</small>
+            </article>
+            <article class="metric">
+              <span>Ticket promedio</span>
+              <strong id="metricAverage">$0</strong>
+              <small>Valor medio por proyecto activo</small>
+            </article>
+          </section>
+
+          <section class="content-grid">
+            <section class="panel wide" id="pipeline" aria-labelledby="pipelineTitle">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Pipeline</p>
+                  <h2 id="pipelineTitle">Oportunidades por estado</h2>
+                </div>
+                <div class="segmented-control" role="tablist" aria-label="Filtro de estado">
+                  <button class="segment active" type="button" data-filter="all">Todas</button>
+                  <button class="segment" type="button" data-filter="En proceso">En proceso</button>
+                  <button class="segment" type="button" data-filter="Negociacion">Negociacion</button>
+                </div>
+              </div>
+              <div class="kanban" id="kanbanBoard" aria-live="polite"></div>
+            </section>
+
+            <section class="panel" aria-labelledby="focusTitle">
+              <div class="section-heading compact">
+                <div>
+                  <p class="eyebrow">Prioridad</p>
+                  <h2 id="focusTitle">Proxima tarea</h2>
+                </div>
+              </div>
+              <div class="focus-card" id="nextAction"></div>
+            </section>
+          </section>
+
+          <section class="panel" id="clientes" aria-labelledby="clientsTitle">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Directorio</p>
+                <h2 id="clientsTitle">Clientes recientes</h2>
+              </div>
+              <label class="search-box">
+                <span>Buscar</span>
+                <input id="searchInput" type="search" placeholder="Nombre, servicio o estado" />
+              </label>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Servicio</th>
+                    <th>Valor</th>
+                    <th>Estado</th>
+                    <th>Entrega</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="clientRows"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="view" id="proposalsView">
+          <section class="panel" aria-labelledby="proposalsTitle">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Propuestas</p>
+                <h2 id="proposalsTitle">Seguimiento de propuestas</h2>
+              </div>
+              <div class="segmented-control" role="tablist" aria-label="Filtro de propuestas">
+                <button class="segment active" type="button" data-proposal-status="all">Todas</button>
+                <button class="segment" type="button" data-proposal-status="proposals">Propuestas</button>
+                <button class="segment" type="button" data-proposal-status="pending">Pendiente</button>
+              </div>
+            </div>
+            <div class="proposal-grid" id="proposalCards"></div>
+          </section>
+        </section>
+
+        <section class="view" id="revenueView">
+          <section class="panel" aria-labelledby="revenueTitle">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Ingresos</p>
+                <h2 id="revenueTitle">Detalle de ingresos estimados</h2>
+              </div>
+              <strong class="total-revenue" id="revenueBreakdownTotal">$0</strong>
+            </div>
+            <p class="helper-copy">Los ingresos estimados suman todos los proyectos activos. No incluye oportunidades pausadas ni eliminadas.</p>
+            <div class="revenue-list" id="revenueBreakdown"></div>
+          </section>
+        </section>
+
+        <section class="view" id="historyView">
+          <section class="panel" aria-labelledby="historyTitle">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Historial</p>
+                <h2 id="historyTitle">Oportunidades eliminadas</h2>
+              </div>
+              <button class="ghost-button" type="button" id="clearHistory">Limpiar historial</button>
+            </div>
+            <div class="history-list" id="deletedHistory"></div>
+          </section>
+        </section>
+
+        <section class="view" id="settingsView">
+          <section class="panel" aria-labelledby="settingsTitle">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Cuenta</p>
+                <h2 id="settingsTitle">Configuracion de perfil</h2>
+              </div>
+            </div>
+            <form class="settings-form" id="settingsForm">
+              <label>
+                Nombre visible
+                <input name="name" type="text" placeholder="Samary" />
+              </label>
+              <label>
+                Rol profesional
+                <input name="role" type="text" placeholder="Freelancer digital" />
+              </label>
+              <label>
+                Moneda preferida
+                <select name="currency">
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="COP">COP</option>
+                  <option value="PEN">PEN</option>
+                  <option value="CLP">CLP</option>
+                </select>
+              </label>
+              <div class="modal-actions">
+                <button class="primary-button" type="submit">Guardar configuracion</button>
+              </div>
+            </form>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="modal" id="opportunityModal" aria-labelledby="modalTitle">
+      <form method="dialog" class="modal-body" id="opportunityForm">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Nuevo registro</p>
+            <h2 id="modalTitle">Agregar oportunidad</h2>
+          </div>
+          <button class="icon-button" type="button" data-close-modal title="Cerrar" aria-label="Cerrar">X</button>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            Cliente
+            <input name="client" type="text" placeholder="Ej. Cafeteria Aurora" required />
+          </label>
+          <label>
+            Servicio
+            <input name="service" type="text" placeholder="Ej. Landing page" required />
+          </label>
+          <label>
+            Valor estimado
+            <input name="value" type="number" min="50" step="10" placeholder="450" required />
+          </label>
+          <label>
+            Estado
+            <select name="status" required>
+              <option>Prospecto</option>
+              <option>Negociacion</option>
+              <option>En proceso</option>
+            </select>
+          </label>
+          <label class="full-field">
+            Proxima tarea
+            <input name="nextStep" type="text" placeholder="Ej. Llamar al cliente, enviar propuesta o pedir anticipo" required />
+          </label>
+          <label>
+            Entrega
+            <input name="dueDate" type="date" required />
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button class="ghost-button" type="button" data-close-modal>Cancelar</button>
+          <button class="primary-button" type="submit">Guardar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="taskModal" aria-labelledby="taskModalTitle">
+      <form method="dialog" class="modal-body" id="taskForm">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Seguimiento</p>
+            <h2 id="taskModalTitle">Gestionar tareas</h2>
+          </div>
+          <button class="icon-button" type="button" data-close-task-modal title="Cerrar" aria-label="Cerrar">X</button>
+        </div>
+
+        <div class="task-project" id="taskProject"></div>
+        <div class="task-list" id="taskList"></div>
+
+        <label class="full-field">
+          Agregar tarea
+          <input id="newTaskInput" type="text" placeholder="Ej. Enviar contrato o pedir materiales" />
+        </label>
+
+        <div class="modal-actions">
+          <button class="ghost-button" type="button" id="addTaskButton">Agregar tarea</button>
+          <button class="ghost-button" type="button" id="pauseProjectButton">Pausar</button>
+          <button class="primary-button" type="button" id="finishProjectButton">Finalizado</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal confirm-modal" id="confirmModal" aria-labelledby="confirmTitle">
+      <div class="modal-body">
+        <div class="confirm-icon" aria-hidden="true">!</div>
+        <div>
+          <p class="eyebrow">Confirmacion</p>
+          <h2 id="confirmTitle">Eliminar oportunidad</h2>
+          <p class="helper-copy" id="confirmMessage">Esta accion enviara la oportunidad al historial.</p>
+        </div>
+        <div class="modal-actions">
+          <button class="ghost-button" type="button" id="cancelConfirm">Cancelar</button>
+          <button class="primary-button danger-primary" type="button" id="acceptConfirm">Eliminar</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
