@@ -31,7 +31,3 @@ Abre `index.html` en el navegador. No requiere servidor ni instalacion de depend
 - Permitir editar y eliminar oportunidades.
 - Crear una vista de detalle por cliente.
 - Conectar una API real o Firebase para guardar datos en la nube.
-
-## Texto corto para Workana
-
-Desarrolle una aplicacion web responsive para gestionar oportunidades comerciales de freelancers. El panel permite registrar clientes, servicios, valores estimados, estados de propuesta y proximas tareas. Incluye metricas automaticas, detalle de ingresos por proyecto, filtros, busqueda, historial de eliminacion, configuracion de cuenta y persistencia local, con una interfaz clara pensada para uso diario.
