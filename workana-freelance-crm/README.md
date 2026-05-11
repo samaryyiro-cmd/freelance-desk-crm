@@ -2,12 +2,6 @@
 
 Freelance Desk es un mini CRM web para freelancers que necesitan ordenar clientes, propuestas, estados de venta e ingresos estimados desde un panel simple.
 
-## Por que sirve para portafolio
-
-- Resuelve un problema real de trabajo freelance: seguimiento de oportunidades y propuestas.
-- Incluye interfaz responsive, dashboard, filtros, busqueda, formulario modal y persistencia con `localStorage`.
-- Es facil de explicar en Workana: ayuda a pequenos negocios o freelancers a organizar clientes sin pagar una herramienta grande.
-
 ## Funcionalidades
 
 - Metricas de ingresos estimados, propuestas abiertas, tasa de cierre y ticket promedio.
@@ -25,9 +19,8 @@ Freelance Desk es un mini CRM web para freelancers que necesitan ordenar cliente
 
 Abre `index.html` en el navegador. No requiere servidor ni instalacion de dependencias.
 
-## Ideas para mejorarlo
-
-- Agregar exportacion a CSV.
-- Permitir editar y eliminar oportunidades.
+## Mejoras futuras
+- Agregar exportación a CSV.
+- Permitir editar oportunidades.
 - Crear una vista de detalle por cliente.
-- Conectar una API real o Firebase para guardar datos en la nube.
+- Conectar una API o Firebase para guardar datos en la nube.
